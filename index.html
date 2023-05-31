@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body  scroll="no" style="overflow-x:hidden">
+    
+    <div id="head">
+        <div id="hea_img_le">
+            <spen>LOGO</spen>
+        </div>
+        <div id="hea_img_re">
+        <img src="imges/setting.png" alt="设置" width="4%">
+        <img src="imges/mess.png" alt="消息" width="4%">
+        <spen>Log out</spen>
+        </div>
+    </div>
+
+
+    <div id="body">
+        <div id="body_head">
+
+            <div id="text">
+                <p id="text_b">Audience Overview</p>
+                <p id="text_s">Rosevilte,CA</p>
+            </div>
+
+            <div id="nav">
+               
+                <div id="l"></div>
+
+                <div id="la">
+                    <a href="#">DASHBOARD</a>
+                    <a href="#">PRDJECTS</a>
+                    <a href="#">CALENDAR</a>
+                    <a href="#">MAILBOX</a>
+                    <a href="#">SETTINGS</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="img">
+
+            <div id="img_p" style="left: -500px;">
+                <img src="imges/4.jpg" alt="">
+                <img src="imges/1.jpg" alt="">
+                <img src="imges/3.jpg" alt="">
+                <img src="imges/2.jpg" alt="">
+            </div>
+
+        <div id="img_o">
+            <span id="img1"></span>
+            <span id="img2"></span>
+            <span id="img3"></span>
+            <span id="img4"></span>
+        </div>
+            
+            <a href="#" id="left"><img src="imges/Left.png" alt=""></a>
+            <a href="#" id="right"><img src="imges/Right.png" alt=""></a>
+            
+        </div>
+        <div id="sup">
+            <div id="sub_head">
+                <p id="sup_res">Support Requests</p>
+                <p id="viewAll">view All</p>
+            </div>
+            <div id="sub_f">
+                <ul>
+                    <li class="li">TIME</li>
+                    <li>9:45pm</li>
+                    <li>9:45pm</li>
+                </ul>
+                <ul>
+                    <li class="li">USER NAME</li>
+                    <li>info@design.com</li>
+                    <li>info@design.com</li>
+                </ul>
+                
+                <ul>
+                    <li class="li">STATUS</li>
+                    <li class="li_bg">Solved</li>
+                    <li class="li_bg">Solved</li>
+                </ul>
+            </div>
+        </div>
+
+        
+        <div class="mys"></div>
+        <div class="myc"></div>
+        <div class="myz"></div>
+        
+        <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+        <script>
+                var text=null;
+                var s = new XMLHttpRequest;
+                s.open('get','https://edu.telking.com/api/?type=week');
+                s.send();
+                s.onreadystatechange = function(text){
+                    if(s.readyState == 4 && s.status == 200){
+                        text=JSON.parse(s.responseText);
+                        var myc= echarts.init(document.querySelector('.myc')) 
+                        option = {
+                        xAxis: {
+                            type: 'category',
+                            data: text.data.xAxis
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+                            {
+                            data: text.data.series,
+                            type: 'bar',
+                            showBackground: true,
+                            backgroundStyle: {
+                                color: 'rgba(180, 180, 180, 0.2)'
+                            }
+                            }
+                        ]
+                        };
+                        myc.setOption(option);
+                        
+                    }
+                } 
+                
+                var texts=null;
+                var ss = new XMLHttpRequest;
+                ss.open('get','https://edu.telking.com/api/?type=month');
+                ss.send();
+                ss.onreadystatechange = function(texts){
+                    if(ss.readyState == 4 && ss.status == 200){
+                        texts=JSON.parse(ss.responseText);
+                var mys= echarts.init(document.querySelector('.mys')) 
+                option = {
+                    xAxis: {
+                        type: 'category',
+                        data: texts.data.xAxis
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                        data: texts.data.series,
+                        type: 'line'
+                        }
+                    ]
+                    };
+                    mys.setOption(option);
+                }
+                } 
+                
+                var myz= echarts.init(document.querySelector('.myz')) 
+
+                option = {
+                    series: [
+                        {
+                        name: 'Access From',
+                        type: 'pie',
+                        radius: '50%',
+                        data: [
+                            { value: 1048, name: 'Search Engine' },
+                            { value: 735, name: 'Direct' },
+                            { value: 580, name: 'Email' },
+                            { value: 484, name: 'Union Ads' },
+                            { value: 300, name: 'Video Ads' }
+                        ],
+                        emphasis: {
+                            itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                        }
+                    ]
+                    };
+                    myz.setOption(option);
+
+                    
+         </script>
+    </div>
+
+
+
+
+
+
+    <div id="bottom">
+        <div id="bot_im">
+            <spen>LOGO</spen>
+        </div>
+        <div id="bot_text">
+            <ul>
+                <li>NEWS</li>
+                <li>CHANNELS</li>
+                <li>OVERVIEW</li>
+                <li>TIMELINE</li>
+            </ul>
+            <ul>
+                <li>SPORT</li>
+                <li>CULTURE</li>
+                <li>NATURE</li>
+                <li>MUSIC</li>
+            </ul>
+            <ul>
+                <li>WEATHER</li>
+                <li>AUTOS</li>
+                <li>LOCAL</li>
+                <li>SHOP</li>
+            </ul>
+            <ul>
+                <li>FUTURE</li>
+                <li>FOOD</li>
+                <li>EARTH</li>
+                <li>TY</li>
+            </ul>
+            <ul>
+                <li>TRAVEL</li>
+                <li>BAD9IO</li>
+            </ul>
+        </div>
+    </div>
+    <script src="index.js"></script>
+
+    <div id="container" style="height: 100%"></div>
+    </script>
+</body>
+</html>
